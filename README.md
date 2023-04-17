@@ -23,6 +23,8 @@ The relation between Actor and Movie is many-to-many so the join table is create
 
 ## Setup
 
+create .env file in root directory and copy vars from .env-example into it.
+
 ```
 git clone
 npm install
