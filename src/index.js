@@ -1,10 +1,9 @@
-require('dotenv').config();
-
 const express = require('express');
 const sequelize = require('./db');
 const userRouter = require('./routes/user');
 const sessionRouter = require('./routes/session');
 const movieRouter = require('./routes/movie');
+const { APP_PORT } = require('./constants');
 
 sequelize.sync();
 
@@ -16,6 +15,6 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/sessions', sessionRouter);
 app.use('/api/v1/movies', movieRouter);
 
-app.listen((process.env.PORT), () => {
-  console.log(`\nServer started successfully - http://localhost:${process.env.PORT}`);
+app.listen((APP_PORT), () => {
+  console.log(`\nServer started successfully - http://localhost:${APP_PORT}`);
 });

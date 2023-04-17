@@ -1,6 +1,11 @@
 const { Sequelize } = require('sequelize');
+const {
+  DB_NAME,
+  DB_USER,
+  DB_PASSWORD,
+} = require('../constants');
 
-const sequelize = new Sequelize('movie-db', 'user', 'pass', {
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   dialect: 'sqlite',
   storage: './dev.sqlite'
 });

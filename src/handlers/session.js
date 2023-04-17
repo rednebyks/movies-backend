@@ -1,11 +1,12 @@
 const Session = require('../db/models/Session');
-const User = require('../db/models/User')
+const User = require('../db/models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const AuthenticationFailedError = require('../errors/authentication-failed');
+const { JWT_SECRET } = require('../constants');
 
 const createToken = (email) => {
-  return jwt.sign({ email }, process.env.JWT_SECRET);
+  return jwt.sign({ email }, JWT_SECRET);
 }
 
 const createSession = async (req, res) => {

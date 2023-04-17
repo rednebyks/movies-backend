@@ -1,5 +1,6 @@
 const NoTokenProvidedError = require('../errors/no-token-provided');
 const { validateAccessToken } = require('../utils');
+const { JWT_SECRET } = require('../constants');
 
 const requireAuth = async (req, res, next) => {
   try{
@@ -12,7 +13,7 @@ const requireAuth = async (req, res, next) => {
     if (!token) {
       throw new NoTokenProvidedError();
     }
-    const userData = validateAccessToken(token, process.env.JWT_SECRET);
+    const userData = validateAccessToken(token, JWT_SECRET);
     if(!userData) {
       throw new NoTokenProvidedError();
     }

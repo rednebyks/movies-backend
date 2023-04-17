@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const { JWT_SECRET } = require('./constants');
 
 const validateAccessToken = (token) => {
   try {
-    const userData = jwt.verify(token, process.env.JWT_SECRET);
+    const userData = jwt.verify(token, JWT_SECRET);
     return userData;
   } catch (e) {
     return null;

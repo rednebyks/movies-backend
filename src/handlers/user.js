@@ -2,9 +2,10 @@ const User = require('../db/models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const EmailNotUniqueError = require('../errors/email-not-unique');
+const { JWT_SECRET } = require('../constants');
 
 const createToken = (email) => {
-  return jwt.sign({ email }, process.env.JWT_SECRET);
+  return jwt.sign({ email }, JWT_SECRET);
 }
 
 const createUser = async (req, res) => {
