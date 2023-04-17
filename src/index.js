@@ -4,6 +4,7 @@ const userRouter = require('./routes/user');
 const sessionRouter = require('./routes/session');
 const movieRouter = require('./routes/movie');
 const { APP_PORT } = require('./constants');
+const PORT = APP_PORT ? APP_PORT : 3000;
 
 sequelize.sync();
 
@@ -15,6 +16,6 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/sessions', sessionRouter);
 app.use('/api/v1/movies', movieRouter);
 
-app.listen((APP_PORT), () => {
-  console.log(`\nServer started successfully - http://localhost:${APP_PORT}`);
+app.listen((PORT), () => {
+  console.log(`\nServer started successfully - http://localhost:${PORT}`);
 });
