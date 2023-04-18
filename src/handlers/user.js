@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const EmailNotUniqueError = require('../errors/email-not-unique');
 const { JWT_SECRET } = require('../constants');
+const PasswordsNotMatchError = require('../errors/passwords-not-match');
 
 const createToken = (email) => {
   return jwt.sign({ email }, JWT_SECRET);
@@ -10,7 +11,11 @@ const createToken = (email) => {
 
 const createUser = async (req, res) => {
   try {
-    const { email, name, password } = req.body;
+    const { email, name, password, confirmPassword } = req.body;
+
+    if(password !== confirmPassword) {
+      throw new PasswordsNotMatchError('PASSWORDS_DO_NOT_MATCH');
+    }
 
     const user = await User.findOne({ where: { email } });
     if(user) {

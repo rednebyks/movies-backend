@@ -1,9 +1,10 @@
 const MovieExistsError = require('../errors/movie-exists');
 const MovieNotFoundError = require('../errors/movie-not-found');
+const { search } = require('../routes/movie');
 const MovieService = require('../services/movie-service');
 const { getMoviesFromFile } = require('../utils');
-
-
+const { Op } = require('sequelize');
+const sequelize = require('../db');
 
 const createMovie = async (req, res) => {
   try {
@@ -59,12 +60,20 @@ const showOne = async (req, res) => {
 
 const showList = async (req, res) => {
   try {
-    const { title, actor, sort, order, offset, limit } = req.query;
-
-    const whereTitle = title ? { title } : {};
-    const whereActor = actor ? { name: actor } : {};
+    const { title, actor, search, sort, order, offset, limit } = req.query;
+    console.log(title, actor, search);
+    const combinedWhere = search
+      ? {
+          [Op.or]: [
+            { title: { [Op.substring]: search }  },
+            { '$actors.name$': { [Op.substring]: search } }
+          ]
+        }
+      : undefined;
+    const whereTitle = title ? { title: { [Op.substring]: title }  } : {};
+    const whereActor = actor ? { name: { [Op.substring]: actor }  } : {};
     
-    const data = await MovieService.getList(whereTitle, whereActor, sort, order, offset, limit);
+    const data = await MovieService.getList(whereTitle, whereActor, combinedWhere, sort, order, offset, limit);
 
     res.status(200).json({ ...data, status: '1' });
   } catch (err) {

@@ -1,6 +1,7 @@
 const Actor = require('../db/models/Actor');
 const Movie = require('../db/models/Movie');
 const { Op } = require('sequelize');
+const sequelize = require('../db');
 
 class MovieService {
   async getByTitle(title) {
@@ -68,22 +69,26 @@ class MovieService {
   async getList(
     whereTitle,
     whereActor,
+    combinedWhere,
     sort='id',
     order='ASC',
     offset=0,
     limit=20
   ) {
+    const where = combinedWhere ? combinedWhere : whereTitle;
     const movies = await Movie.findAndCountAll({
-      where: whereTitle,
+      where,
       include: {
         model: Actor,
         as: 'actors',
         where: whereActor,
         attributes: [],
+        required: true,
       },
-      order: [[`${sort}`, `${order}`]],
+      order: [[sequelize.fn('lower', sequelize.col(`${sort}`)), `${order}`]],
       offset,
       limit,
+      subQuery: false,
       distinct: true
     });
     return {
