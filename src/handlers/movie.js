@@ -61,7 +61,7 @@ const showOne = async (req, res) => {
 const showList = async (req, res) => {
   try {
     const { title, actor, search, sort, order, offset, limit } = req.query;
-    console.log(title, actor, search);
+
     const combinedWhere = search
       ? {
           [Op.or]: [
