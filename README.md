@@ -3,16 +3,16 @@
 ## EndPoints
 
 ```
-POST  /users
+POST     /users
 
-POST  /sessions
+POST     /sessions
 
-POST /movies
-DELETE  /movies/:id
-PATCH  /movies/:id
-GET  /movies/:id
-GET  /movies
-POST /movies/import
+POST     /movies
+DELETE   /movies/:id
+PATCH    /movies/:id
+GET      /movies/:id
+GET      /movies
+POST     /movies/import
 ```
 
 ## DB
