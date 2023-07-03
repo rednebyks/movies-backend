@@ -124,7 +124,7 @@ resource "aws_security_group_rule" "ecs-egress" {
 
 # Elastic IP for NAT (Netword Address Translation) 
 resource "aws_eip" "nat_eip" {
-  domain = "vpc"
+  vpc = true
 }
 
 resource "aws_nat_gateway" "nat" {
