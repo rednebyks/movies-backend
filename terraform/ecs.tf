@@ -43,11 +43,11 @@ resource "aws_ecs_task_definition" "my_task_definition" {
   container_definitions = <<DEFINITION
   [
     {
-      "name": "nginx-container",
-      "image": "nginx:latest",
+      "name": "movies",
+      "image": "movies:latest",
       "portMappings": [
         {
-          "containerPort": 80,
+          "containerPort": 8000,
           "hostPort": 80,
           "protocol": "tcp"
         }
