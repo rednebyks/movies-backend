@@ -47,8 +47,8 @@ resource "aws_ecs_task_definition" "my_task_definition" {
       "image": "movies:latest",
       "portMappings": [
         {
-          "containerPort": 8000,
-          "hostPort": 80,
+          "containerPort": 8080,
+          "hostPort": 8080,
           "protocol": "tcp"
         }
       ],

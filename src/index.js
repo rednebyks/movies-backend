@@ -4,7 +4,7 @@ const userRouter = require('./routes/user');
 const sessionRouter = require('./routes/session');
 const movieRouter = require('./routes/movie');
 const { APP_PORT } = require('./constants');
-const PORT = APP_PORT ? APP_PORT : 3000;
+const PORT = APP_PORT ? APP_PORT : 8080;
 
 sequelize.sync();
 
